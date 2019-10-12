@@ -1,5 +1,5 @@
 
-package br.com.interagese.firebird.models;
+package br.com.firebird.models;
 
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;

@@ -1,4 +1,4 @@
-package br.com.interagese.firebird.models;
+package br.com.firebird.models;
 
 import java.util.Date;
 import javax.persistence.Column;
