@@ -1,7 +1,10 @@
 
-package br.com.firebird.models;
+package br.com.interagese.promocao;
 
+import br.com.firebird.models.Tabpromoitem;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -68,6 +72,11 @@ public class Tabpromocao {
     private Date rgdata;
     @Column(name = "RGEVENTO")
     private Integer rgevento;
+    
+    @Transient
+    private List<Tabpromoitem> itemList = new ArrayList<>();
+    @Transient
+    private List<Tabpromoitem> beneficioList = new ArrayList<>();
 
     public Tabpromocao() {
     }
@@ -235,6 +244,22 @@ public class Tabpromocao {
 
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Tabpromoitem> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Tabpromoitem> itemList) {
+        this.itemList = itemList;
+    }
+
+    public List<Tabpromoitem> getBeneficioList() {
+        return beneficioList;
+    }
+
+    public void setBeneficioList(List<Tabpromoitem> beneficioList) {
+        this.beneficioList = beneficioList;
     }
     
 }
