@@ -1,5 +1,5 @@
 
-package br.com.interagese.promocao;
+package br.com.firebird.models;
 
 import br.com.firebird.models.Tabpromoitem;
 import java.util.ArrayList;

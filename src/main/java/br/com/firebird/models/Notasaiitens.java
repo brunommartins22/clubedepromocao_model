@@ -4,7 +4,6 @@ package br.com.firebird.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -43,11 +42,11 @@ public class Notasaiitens implements Serializable{
     private Double vltotal;
     
     @JsonIgnore
-    @Column(name = "VLDESCRITE")
+    @Column(name = "VLDESACRITE")
     private Double vldesacrite;
     
     @JsonIgnore
-    @Column(name = "TPDESCRITE")
+    @Column(name = "TPDESACRITE")
     private String tpdesacrite;
     
     @JsonProperty("recargo")

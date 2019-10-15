@@ -1,7 +1,6 @@
 
 package br.com.firebird.models;
 
-import br.com.interagese.promocao.Tabpromocao;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;

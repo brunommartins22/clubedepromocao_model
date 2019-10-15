@@ -1,4 +1,4 @@
-package br.com.interagese.promocao;
+package br.com.interagese.promocao.enuns;
 
 public enum TipoDePagamento {
 

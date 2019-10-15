@@ -1,4 +1,4 @@
-package br.com.firebird.models;
+package br.com.interagese.postgres.models;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,10 +17,10 @@ public class Sincronizacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao")
-    @SequenceGenerator(name = "gen_sincronizacao", sequenceName = "seq_sincronizacao")
+    @SequenceGenerator(name = "gen_sincronizacao", sequenceName = "seq_sincronizacao", allocationSize = 1)
     private Long codigo;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA")
     private Date data;
 
@@ -39,7 +39,5 @@ public class Sincronizacao {
     public void setData(Date data) {
         this.data = data;
     }
-    
-    
-    
+
 }

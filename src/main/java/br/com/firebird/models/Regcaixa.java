@@ -1,6 +1,6 @@
 package br.com.firebird.models;
 
-import br.com.interagese.promocao.TipoDePagamento;
+import br.com.interagese.promocao.enuns.TipoDePagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;

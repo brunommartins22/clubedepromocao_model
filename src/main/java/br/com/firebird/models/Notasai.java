@@ -1,9 +1,10 @@
 
 package br.com.firebird.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import br.com.interagese.util.FormattedDateSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,21 +27,21 @@ public class Notasai implements Serializable{
     private String nrcontr;
     
     @JsonProperty("fecha")
-    @JsonFormat(pattern = "yyyy-MM-hh'T'HH:mm:ssZ")
+    @JsonSerialize(using = FormattedDateSerializer.class)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DTHRLANC")
+    @Column(updatable = false, name = "DTHRLANC")
     private Date dthrlanc;
     
-    @Column(name ="NRNOTANFE")
+    @Column(updatable = false, name ="NRNOTAF")
     @JsonProperty("numero")
-    private String nrnotanfe;
+    private String nrnotaf;
     
     @JsonProperty("descuentoTotal")
-    @Column(name = "VLDESCNOT")
+    @Column(updatable = false, name = "VLDESCNOT")
     private Double vldescnot;
     
     @JsonProperty("total")
-    @Column(name = "TOTNOTA")
+    @Column(updatable = false, name = "TOTNOTA")
     private Double totnota;
     
     @JsonProperty("cancelacion")
@@ -55,7 +56,7 @@ public class Notasai implements Serializable{
     @JsonProperty("cotizacion")
     private final double cotacao = 1.00;
     
-    @Column(name = "CPFCNPJ")
+    @Column(updatable = false, name = "CPFCNPJ")
     @JsonProperty("documentoCliente")
     private String cpfcnpj;
     
@@ -68,7 +69,7 @@ public class Notasai implements Serializable{
     private List<Regcaixa> regcaixaList = new ArrayList<>();
 
     @JsonIgnore
-    @Column(name = "CODSCANNTECH")
+    @Column(updatable = false, name = "CODSCANNTECH")
     private Integer codscanntech;
     
     @JsonIgnore
@@ -79,6 +80,14 @@ public class Notasai implements Serializable{
     @Column(name = "OBSSCANNTECH")
     private String obsscanntech;
     
+    @JsonIgnore
+    @Column(name = "NRCAIXA", updatable = false)
+    private Integer nrcaixa; 
+    
+    @JsonIgnore
+    @Column(name = "CODFIL", updatable = false)
+    private Integer codfil; 
+    
     public String getNrcontr() {
         return nrcontr;
     }
@@ -87,12 +96,12 @@ public class Notasai implements Serializable{
         this.nrcontr = nrcontr;
     }
 
-    public String getNrnotanfe() {
-        return nrnotanfe;
+    public String getNrnotaf() {
+        return nrnotaf;
     }
 
-    public void setNrnotanfe(String nrnotanfe) {
-        this.nrnotanfe = nrnotanfe;
+    public void setNrnotaf(String nrnotaf) {
+        this.nrnotaf = nrnotaf;
     }
 
     public Double getVldescnot() {
@@ -181,6 +190,22 @@ public class Notasai implements Serializable{
 
     public void setObsscanntech(String obsscanntech) {
         this.obsscanntech = obsscanntech;
+    }
+
+    public Integer getNrcaixa() {
+        return nrcaixa;
+    }
+
+    public void setNrcaixa(Integer nrcaixa) {
+        this.nrcaixa = nrcaixa;
+    }
+
+    public Integer getCodfil() {
+        return codfil;
+    }
+
+    public void setCodfil(Integer codfil) {
+        this.codfil = codfil;
     }
     
 }
