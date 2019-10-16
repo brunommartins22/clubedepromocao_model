@@ -8,10 +8,7 @@ package br.com.interagese.postgres.models;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -23,18 +20,15 @@ import javax.persistence.Table;
 public class FilialScanntech implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_filial_scanntech")
-    @SequenceGenerator(name = "gen_filial_scanntech", sequenceName = "seq_filial_scanntech")
-    private Long id;
-    private String nomeFilial;
     private Long codigoFilial;
+    private String nomeFilial;
     private Long codigoScanntech;
 
     //***************************** Equals && Hashcode *************************
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.getId());
+        hash = 67 * hash + Objects.hashCode(this.getCodigoFilial());
         return hash;
     }
 
@@ -50,27 +44,13 @@ public class FilialScanntech implements Serializable {
             return false;
         }
         final FilialScanntech other = (FilialScanntech) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.codigoFilial, other.codigoFilial)) {
             return false;
         }
         return true;
     }
 
     //******************************* get && setts *****************************
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     /**
      * @return the nomeFilial
      */

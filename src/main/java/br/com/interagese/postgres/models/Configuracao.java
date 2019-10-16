@@ -23,24 +23,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "configuracao")
-public class Configuracao implements Serializable{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "gen_configuracao")
-    @SequenceGenerator(name = "gen_configuracao",sequenceName = "seq_configuracao")
-    private Long id;
-    private String usuario;
-    private String senha;
-    private String codigoEmpresa;
-    private Integer intervaloSincronizacao;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Url> listaUrl;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<FilialScanntech> listaFilial;
-    
-    
-    //*************************** Equals && Hashcode ***************************
+public class Configuracao implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_configuracao")
+    @SequenceGenerator(name = "gen_configuracao", sequenceName = "seq_configuracao")
+    private Long id;
+    private Integer intervaloSincronizacao;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<ConfiguracaoItem> configuracaoItem;
+
+    //*************************** Equals && Hashcode ***************************
     @Override
     public int hashCode() {
         int hash = 7;
@@ -65,9 +58,8 @@ public class Configuracao implements Serializable{
         }
         return true;
     }
-    
-    //**************************** get && setts ********************************
 
+    //**************************** get && setts ********************************
     /**
      * @return the id
      */
@@ -80,48 +72,6 @@ public class Configuracao implements Serializable{
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return the usuario
-     */
-    public String getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * @param usuario the usuario to set
-     */
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    /**
-     * @return the senha
-     */
-    public String getSenha() {
-        return senha;
-    }
-
-    /**
-     * @param senha the senha to set
-     */
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    /**
-     * @return the codigoEmpresa
-     */
-    public String getCodigoEmpresa() {
-        return codigoEmpresa;
-    }
-
-    /**
-     * @param codigoEmpresa the codigoEmpresa to set
-     */
-    public void setCodigoEmpresa(String codigoEmpresa) {
-        this.codigoEmpresa = codigoEmpresa;
     }
 
     /**
@@ -139,33 +89,17 @@ public class Configuracao implements Serializable{
     }
 
     /**
-     * @return the listaUrl
+     * @return the configuracaoItem
      */
-    public List<Url> getListaUrl() {
-        return listaUrl;
+    public List<ConfiguracaoItem> getConfiguracaoItem() {
+        return configuracaoItem;
     }
 
     /**
-     * @param listaUrl the listaUrl to set
+     * @param configuracaoItem the configuracaoItem to set
      */
-    public void setListaUrl(List<Url> listaUrl) {
-        this.listaUrl = listaUrl;
+    public void setConfiguracaoItem(List<ConfiguracaoItem> configuracaoItem) {
+        this.configuracaoItem = configuracaoItem;
     }
 
-    /**
-     * @return the listaFilial
-     */
-    public List<FilialScanntech> getListaFilial() {
-        return listaFilial;
-    }
-
-    /**
-     * @param listaFilial the listaFilial to set
-     */
-    public void setListaFilial(List<FilialScanntech> listaFilial) {
-        this.listaFilial = listaFilial;
-    }
-    
-    
-    
 }
