@@ -1,7 +1,10 @@
 
 package br.com.firebird.models;
 
+import br.com.firebird.models.Tabpromoitem;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +14,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 @Entity
 @Table(name = "TABPROMOCAO")
-@NamedQueries({
-    @NamedQuery(name = "Tabpromocao.findAll", query = "SELECT t FROM Tabpromocao t")})
 public class Tabpromocao {
 
     private static final long serialVersionUID = 1L;
@@ -28,7 +30,7 @@ public class Tabpromocao {
     @Column(name = "CODPROMOCAO")
     private Integer codpromocao;
     @Column(name = "CODSCANNTECH")
-    private String codscanntech;
+    private Integer codscanntech;
     @Size(max = 255)
     @Column(name = "TITULO")
     private String titulo;
@@ -68,6 +70,11 @@ public class Tabpromocao {
     private Date rgdata;
     @Column(name = "RGEVENTO")
     private Integer rgevento;
+    
+    @Transient
+    private List<Tabpromoitem> itemList = new ArrayList<>();
+    @Transient
+    private List<Tabpromoitem> beneficioList = new ArrayList<>();
 
     public Tabpromocao() {
     }
@@ -84,11 +91,11 @@ public class Tabpromocao {
         this.codpromocao = codpromocao;
     }
 
-    public String getCodscanntech() {
+    public Integer getCodscanntech() {
         return codscanntech;
     }
 
-    public void setCodscanntech(String codscanntech) {
+    public void setCodscanntech(Integer codscanntech) {
         this.codscanntech = codscanntech;
     }
 
@@ -235,6 +242,22 @@ public class Tabpromocao {
 
     public void setTipo(Integer tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Tabpromoitem> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(List<Tabpromoitem> itemList) {
+        this.itemList = itemList;
+    }
+
+    public List<Tabpromoitem> getBeneficioList() {
+        return beneficioList;
+    }
+
+    public void setBeneficioList(List<Tabpromoitem> beneficioList) {
+        this.beneficioList = beneficioList;
     }
     
 }

@@ -69,7 +69,7 @@ public class Tabpromoitem {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    protected TabpromoitemPK tabpromoitemPK;
+    protected TabpromoitemPK tabpromoitemPK = new TabpromoitemPK();
     @Size(max = 6)
     @Column(name = "CODPRO")
     private String codpro;
