@@ -12,12 +12,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "sincronizacao")
-public class Sincronizacao {
+@Table(name = "sincronizacao_venda")
+public class SincronizacaoVenda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao")
-    @SequenceGenerator(name = "gen_sincronizacao", sequenceName = "seq_sincronizacao", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_venda")
+    @SequenceGenerator(name = "gen_sincronizacao_venda", sequenceName = "seq_sincronizacao_venda", allocationSize = 1)
     private Long codigo;
 
     @Temporal(TemporalType.TIMESTAMP)

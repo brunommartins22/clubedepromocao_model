@@ -37,8 +37,12 @@ public class Notasai implements Serializable{
     private String nrnotaf;
     
     @JsonProperty("descuentoTotal")
-    @Column(updatable = false, name = "VLDESCNOT")
-    private Double vldescnot;
+    @Transient
+    private Double descontoTotal;
+    
+    @JsonProperty("recargoTotal")
+    @Transient
+    private Double acrescimentoTotal;
     
     @JsonProperty("total")
     @Column(updatable = false, name = "TOTNOTA")
@@ -104,12 +108,12 @@ public class Notasai implements Serializable{
         this.nrnotaf = nrnotaf;
     }
 
-    public Double getVldescnot() {
-        return vldescnot;
+    public Double getDescontoTotal() {
+        return descontoTotal;
     }
 
-    public void setVldescnot(Double vldescnot) {
-        this.vldescnot = vldescnot;
+    public void setDescontoTotal(Double descontoTotal) {
+        this.descontoTotal = descontoTotal;
     }
 
     public Double getTotnota() {
@@ -206,6 +210,14 @@ public class Notasai implements Serializable{
 
     public void setCodfil(Integer codfil) {
         this.codfil = codfil;
+    }
+
+    public Double getAcrescimentoTotal() {
+        return acrescimentoTotal;
+    }
+
+    public void setAcrescimentoTotal(Double acrescimentoTotal) {
+        this.acrescimentoTotal = acrescimentoTotal;
     }
     
 }

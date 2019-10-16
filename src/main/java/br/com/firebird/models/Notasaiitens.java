@@ -64,7 +64,7 @@ public class Notasaiitens implements Serializable{
             case "D":
                 return 0.0;
             default:
-                return null;
+                return 0.0;
         }
     }
     
@@ -83,7 +83,7 @@ public class Notasaiitens implements Serializable{
             case "D":
                 return vldesacrite;
             default:
-                return null;
+                return 0.0;
         }
     }
 
