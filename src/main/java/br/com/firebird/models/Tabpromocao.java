@@ -21,8 +21,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "TABPROMOCAO")
-@NamedQueries({
-    @NamedQuery(name = "Tabpromocao.findAll", query = "SELECT t FROM Tabpromocao t")})
 public class Tabpromocao {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +30,7 @@ public class Tabpromocao {
     @Column(name = "CODPROMOCAO")
     private Integer codpromocao;
     @Column(name = "CODSCANNTECH")
-    private String codscanntech;
+    private Integer codscanntech;
     @Size(max = 255)
     @Column(name = "TITULO")
     private String titulo;
@@ -93,11 +91,11 @@ public class Tabpromocao {
         this.codpromocao = codpromocao;
     }
 
-    public String getCodscanntech() {
+    public Integer getCodscanntech() {
         return codscanntech;
     }
 
-    public void setCodscanntech(String codscanntech) {
+    public void setCodscanntech(Integer codscanntech) {
         this.codscanntech = codscanntech;
     }
 

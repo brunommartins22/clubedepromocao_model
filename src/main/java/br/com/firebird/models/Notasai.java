@@ -48,10 +48,6 @@ public class Notasai implements Serializable{
     @Column(updatable = false, name = "TOTNOTA")
     private Double totnota;
     
-    @JsonProperty("cancelacion")
-    @Transient
-    private boolean cancelada = false;
-    
     @Transient
     @JsonProperty("codigoMoneda")
     private final String moeda = "986";
@@ -92,6 +88,10 @@ public class Notasai implements Serializable{
     @Column(name = "CODFIL", updatable = false)
     private Integer codfil; 
     
+    @JsonIgnore
+    @Column(name = "SITUACAO", updatable = false)
+    private String situacao;
+    
     public String getNrcontr() {
         return nrcontr;
     }
@@ -124,12 +124,19 @@ public class Notasai implements Serializable{
         this.totnota = totnota;
     }
 
+    @JsonProperty("cancelacion")
     public boolean isCancelada() {
-        return cancelada;
-    }
-
-    public void setCancelada(boolean cancelada) {
-        this.cancelada = cancelada;
+        
+        if(situacao.equals("E") || situacao.equals("N")){
+            return false;
+        }
+        
+        if(situacao.equals("A") || situacao.equals("C")){
+            return true;
+        }
+        
+        return false;
+        
     }
 
     public String getCpfcnpj() {
@@ -218,6 +225,14 @@ public class Notasai implements Serializable{
 
     public void setAcrescimentoTotal(Double acrescimentoTotal) {
         this.acrescimentoTotal = acrescimentoTotal;
+    }
+
+    public String getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(String situacao) {
+        this.situacao = situacao;
     }
     
 }
