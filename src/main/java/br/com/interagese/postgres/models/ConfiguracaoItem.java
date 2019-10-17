@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -33,9 +36,11 @@ public class ConfiguracaoItem implements Serializable {
     private String senha;
     private String codigoEmpresa;
     private String empresaPrincipal;
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Url> listaUrl;
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @Fetch(FetchMode.SELECT)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FilialScanntech> listaFilial;
 
     //******************************* Equals && Hashcode ***********************

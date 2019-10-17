@@ -38,11 +38,11 @@ public class Notasai implements Serializable{
     
     @JsonProperty("descuentoTotal")
     @Transient
-    private Double descontoTotal;
+    private Double descontoTotal = 0.0;
     
     @JsonProperty("recargoTotal")
     @Transient
-    private Double acrescimentoTotal;
+    private Double acrescimentoTotal = 0.0;
     
     @JsonProperty("total")
     @Column(updatable = false, name = "TOTNOTA")

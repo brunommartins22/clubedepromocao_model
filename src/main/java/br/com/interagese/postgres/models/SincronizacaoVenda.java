@@ -18,18 +18,18 @@ public class SincronizacaoVenda {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_venda")
     @SequenceGenerator(name = "gen_sincronizacao_venda", sequenceName = "seq_sincronizacao_venda", allocationSize = 1)
-    private Long codigo;
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA")
     private Date data;
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getData() {

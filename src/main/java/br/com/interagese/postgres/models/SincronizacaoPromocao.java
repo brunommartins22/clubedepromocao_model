@@ -20,7 +20,7 @@ public class SincronizacaoPromocao implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_promocao")
     @SequenceGenerator(name = "gen_sincronizacao_promocao", sequenceName = "seq_sincronizacao_promocao", allocationSize = 1)
-    private Long codigo;
+    private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA")
@@ -34,12 +34,12 @@ public class SincronizacaoPromocao implements Serializable{
         data = new Date();
     }
 
-    public Long getCodigo() {
-        return codigo;
+    public Long getId() {
+        return id;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getData() {
