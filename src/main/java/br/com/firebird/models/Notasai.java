@@ -45,8 +45,12 @@ public class Notasai implements Serializable{
     private Double acrescimentoTotal = 0.0;
     
     @JsonProperty("total")
-    @Column(updatable = false, name = "TOTNOTA")
-    private Double totnota;
+    @Column(updatable = false, name = "TOTGERAL")
+    private Double totgeral;
+    
+    @JsonIgnore
+    @Column(updatable = false, name = "VLDESCNOT")
+    private Double vldescnot;
     
     @Transient
     @JsonProperty("codigoMoneda")
@@ -116,12 +120,12 @@ public class Notasai implements Serializable{
         this.descontoTotal = descontoTotal;
     }
 
-    public Double getTotnota() {
-        return totnota;
+    public Double getTotgeral() {
+        return totgeral;
     }
 
-    public void setTotnota(Double totnota) {
-        this.totnota = totnota;
+    public void setTotgeral(Double totgeral) {
+        this.totgeral = totgeral;
     }
 
     @JsonProperty("cancelacion")
@@ -233,6 +237,14 @@ public class Notasai implements Serializable{
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+
+    public Double getVldescnot() {
+        return vldescnot;
+    }
+
+    public void setVldescnot(Double vldescnot) {
+        this.vldescnot = vldescnot;
     }
     
 }
