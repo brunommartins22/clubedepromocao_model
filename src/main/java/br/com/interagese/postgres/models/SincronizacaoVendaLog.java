@@ -35,11 +35,12 @@ public class SincronizacaoVendaLog implements Serializable {
     @Column(nullable = false)
     private Integer codigoFilial;
     
-    private String situacao;
-
+    
     /**
      * E - enviado; R - Error; P - Pendente
      */
+    private String situacao;
+    
     private String erro;
 
     @Transient
