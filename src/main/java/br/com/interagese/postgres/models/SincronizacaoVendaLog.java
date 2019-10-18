@@ -1,4 +1,3 @@
-
 package br.com.interagese.postgres.models;
 
 import java.io.Serializable;
@@ -15,29 +14,32 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "sincronizacao_venda_log")
-public class SincronizacaoVendaLog implements Serializable{
-    
+public class SincronizacaoVendaLog implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_venda_log")
     @SequenceGenerator(name = "gen_sincronizacao_venda_log", sequenceName = "seq_sincronizacao_venda_log", allocationSize = 1)
     private Long id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date dataEnvio;
-    
+
     @Column(nullable = false)
     private String numeroCupom;
-    
+
     @Column(nullable = false)
     private Integer numeroCaixa;
-    
+
     @Column(nullable = false)
     private Integer codigoFilial;
-    
+
+    /**
+     * E - enviado; R - Error; P - Pendente
+     */
     @Column(nullable = false, length = 1)
     private String situacao;
-    
+
     private String erro;
 
     public Long getId() {
@@ -95,7 +97,5 @@ public class SincronizacaoVendaLog implements Serializable{
     public void setCodigoFilial(Integer codigoFilial) {
         this.codigoFilial = codigoFilial;
     }
-    
-    
-    
+
 }
