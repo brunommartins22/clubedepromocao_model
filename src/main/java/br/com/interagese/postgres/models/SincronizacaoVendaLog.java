@@ -1,4 +1,3 @@
-
 package br.com.interagese.postgres.models;
 
 import java.io.Serializable;
@@ -12,34 +11,62 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sincronizacao_venda_log")
-public class SincronizacaoVendaLog implements Serializable{
-    
+public class SincronizacaoVendaLog implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_venda_log")
     @SequenceGenerator(name = "gen_sincronizacao_venda_log", sequenceName = "seq_sincronizacao_venda_log", allocationSize = 1)
     private Long id;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date dataEnvio;
-    
+
     @Column(nullable = false)
     private String numeroCupom;
-    
+
     @Column(nullable = false)
     private Integer numeroCaixa;
-    
+
     @Column(nullable = false)
     private Integer codigoFilial;
-    
+
     @Column(nullable = false, length = 1)
     private String situacao;
-    
+
     private String erro;
 
+    @Transient
+    private String filial;
+
+    @Transient
+    private String situacaoDesc;
+
+    //****************************** transient *********************************
+    public String validarSituacao() {
+        String resp = "";
+
+        switch (situacao) {
+            case "E": {
+                resp = "Enviado";
+                break;
+            }
+            case "R": {
+                resp = "Erro";
+            }
+            case "P": {
+                resp = "Pendente";
+            }
+        }
+
+        return resp;
+    }
+
+    //****************************** get && setts ******************************
     public Long getId() {
         return id;
     }
@@ -95,7 +122,21 @@ public class SincronizacaoVendaLog implements Serializable{
     public void setCodigoFilial(Integer codigoFilial) {
         this.codigoFilial = codigoFilial;
     }
-    
-    
-    
+
+    public String getFilial() {
+        return filial;
+    }
+
+    public void setFilial(String filial) {
+        this.filial = filial;
+    }
+
+    public String getSituacaoDesc() {
+        return situacaoDesc;
+    }
+
+    public void setSituacaoDesc(String situacaoDesc) {
+        this.situacaoDesc = situacaoDesc;
+    }
+
 }
