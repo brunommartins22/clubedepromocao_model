@@ -34,13 +34,13 @@ public class SincronizacaoVendaLog implements Serializable {
 
     @Column(nullable = false)
     private Integer codigoFilial;
-
+    
+    
     /**
      * E - enviado; R - Error; P - Pendente
      */
-    @Column(nullable = false, length = 1)
     private String situacao;
-
+    
     private String erro;
 
     @Transient
@@ -49,7 +49,7 @@ public class SincronizacaoVendaLog implements Serializable {
     private String filial;
 
     //*************************** Transient ************************************
-    public String getvalidarSitucao() {
+    public String getValidarSitucao() {
         String resp = "";
 
         switch (situacao) {

@@ -1,4 +1,3 @@
-
 package br.com.firebird.models;
 
 import br.com.firebird.models.Tabpromoitem;
@@ -18,7 +17,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 @Entity
 @Table(name = "TABPROMOCAO")
 public class Tabpromocao {
@@ -37,8 +35,6 @@ public class Tabpromocao {
     @Size(max = 255)
     @Column(name = "DESCRICAO")
     private String descricao;
-    @Column(name = "TIPO")
-    private Integer tipo;
     @Column(name = "DATAINICIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datainicio;
@@ -60,6 +56,8 @@ public class Tabpromocao {
     private Double desconto;
     @Column(name = "PAGA")
     private Integer paga;
+    @Column(name = "TIPO")
+    private Integer tipo;
     @Column(name = "RGCODUSU")
     private Integer rgcodusu;
     @Size(max = 8)
@@ -70,11 +68,13 @@ public class Tabpromocao {
     private Date rgdata;
     @Column(name = "RGEVENTO")
     private Integer rgevento;
-    
+
     @Transient
     private List<Tabpromoitem> itemList = new ArrayList<>();
     @Transient
     private List<Tabpromoitem> beneficioList = new ArrayList<>();
+    @Transient
+    private String tipoDesc;
 
     public Tabpromocao() {
     }
@@ -83,6 +83,38 @@ public class Tabpromocao {
         this.codpromocao = codpromocao;
     }
 
+    //**************************** transient ***********************************
+    public String getValidarTipo() {
+        String resp = "";
+        switch (tipo) {
+            case 1: {
+                resp = "Presente Adicional";
+                break;
+            }
+            case 2: {
+                resp = "Leva M Paga N";
+                break;
+            }
+            case 3: {
+                resp = "Desconto Variável";
+                break;
+            }
+            case 4: {
+                resp = "Desconto Adicional";
+                break;
+            }
+            case 5: {
+                resp = "Preço Fixo";
+                break;
+            }
+            case 6: {
+                resp = "Desconto Fixo";
+            }
+        }
+        return resp;
+    }
+
+    //***************************** get && setts *******************************
     public Integer getCodpromocao() {
         return codpromocao;
     }
@@ -235,7 +267,7 @@ public class Tabpromocao {
     public String toString() {
         return "br.com.interagese.scanntech.business.entity.Tabpromocao[ codpromocao=" + codpromocao + " ]";
     }
-    
+
     public Integer getTipo() {
         return tipo;
     }
@@ -259,5 +291,13 @@ public class Tabpromocao {
     public void setBeneficioList(List<Tabpromoitem> beneficioList) {
         this.beneficioList = beneficioList;
     }
-    
+
+    public String getTipoDesc() {
+        return tipoDesc;
+    }
+
+    public void setTipoDesc(String tipoDesc) {
+        this.tipoDesc = tipoDesc;
+    }
+
 }
