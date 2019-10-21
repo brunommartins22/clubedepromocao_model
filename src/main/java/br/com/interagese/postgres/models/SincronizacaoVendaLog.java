@@ -11,6 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "sincronizacao_venda_log")
@@ -42,6 +43,34 @@ public class SincronizacaoVendaLog implements Serializable {
 
     private String erro;
 
+    @Transient
+    private String situacaoDesc;
+    @Transient
+    private String filial;
+
+    //*************************** Transient ************************************
+    public String getvalidarSitucao() {
+        String resp = "";
+
+        switch (situacao) {
+            case "E": {
+                resp = "Enviado";
+                break;
+            }
+            case "P": {
+                resp = "Pendente";
+                break;
+            }
+            default: {
+                resp = "Error";
+                break;
+            }
+        }
+
+        return resp;
+    }
+
+    //****************************** get && setts ******************************
     public Long getId() {
         return id;
     }
@@ -96,6 +125,34 @@ public class SincronizacaoVendaLog implements Serializable {
 
     public void setCodigoFilial(Integer codigoFilial) {
         this.codigoFilial = codigoFilial;
+    }
+
+    /**
+     * @return the situacaoDesc
+     */
+    public String getSituacaoDesc() {
+        return situacaoDesc;
+    }
+
+    /**
+     * @param situacaoDesc the situacaoDesc to set
+     */
+    public void setSituacaoDesc(String situacaoDesc) {
+        this.situacaoDesc = situacaoDesc;
+    }
+
+    /**
+     * @return the filial
+     */
+    public String getFilial() {
+        return filial;
+    }
+
+    /**
+     * @param filial the filial to set
+     */
+    public void setFilial(String filial) {
+        this.filial = filial;
     }
 
 }
