@@ -32,10 +32,6 @@ public class Notasai implements Serializable{
     @Column(updatable = false, name = "DTHRLANC")
     private Date dthrlanc;
     
-    @Column(updatable = false, name ="NRNOTAF")
-    @JsonProperty("numero")
-    private String nrnotaf;
-    
     @JsonProperty("descuentoTotal")
     @Transient
     private Double descontoTotal = 0.0;
@@ -71,10 +67,6 @@ public class Notasai implements Serializable{
     @Transient
     @JsonProperty("pagos")
     private List<Regcaixa> regcaixaList = new ArrayList<>();
-
-    @JsonIgnore
-    @Column(updatable = false, name = "CODSCANNTECH")
-    private Integer codscanntech;
     
     @JsonIgnore
     @Column(name = "ENVIOSCANNTECH")
@@ -102,14 +94,6 @@ public class Notasai implements Serializable{
 
     public void setNrcontr(String nrcontr) {
         this.nrcontr = nrcontr;
-    }
-
-    public String getNrnotaf() {
-        return nrnotaf;
-    }
-
-    public void setNrnotaf(String nrnotaf) {
-        this.nrnotaf = nrnotaf;
     }
 
     public Double getDescontoTotal() {
@@ -183,14 +167,6 @@ public class Notasai implements Serializable{
         this.dthrlanc = dthrlanc;
     }
 
-    public Integer getCodscanntech() {
-        return codscanntech;
-    }
-
-    public void setCodscanntech(Integer codscanntech) {
-        this.codscanntech = codscanntech;
-    }
-
     public String getEnvioscanntech() {
         return envioscanntech;
     }
@@ -245,6 +221,11 @@ public class Notasai implements Serializable{
 
     public void setVldescnot(Double vldescnot) {
         this.vldescnot = vldescnot;
+    }
+    
+    @JsonProperty("numero")
+    public String getNumeroCupom(){
+        return nrcontr.replaceAll("[^0-9]", "");
     }
     
 }
