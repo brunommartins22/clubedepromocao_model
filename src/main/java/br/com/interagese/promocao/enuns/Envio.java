@@ -3,6 +3,6 @@ package br.com.interagese.promocao.enuns;
 
 public enum Envio {
     
-    NADA, PROMOCAO, VENDA, FECHAMENTO;
+    NADA, ERRO, PROMOCAO, VENDA, FECHAMENTO;
     
 }
