@@ -28,7 +28,10 @@ public class SincronizacaoVendaLog implements Serializable {
 
     @Column(nullable = false)
     private String numeroCupom;
-
+    
+    @Column(length = 10)
+    private String nrcontr;
+    
     @Column(nullable = false)
     private Integer numeroCaixa;
 
@@ -153,6 +156,14 @@ public class SincronizacaoVendaLog implements Serializable {
      */
     public void setFilial(String filial) {
         this.filial = filial;
+    }
+
+    public String getNrcontr() {
+        return nrcontr;
+    }
+
+    public void setNrcontr(String nrcontr) {
+        this.nrcontr = nrcontr;
     }
 
 }

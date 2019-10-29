@@ -80,6 +80,10 @@ public class FechamentoPromocao implements Serializable{
     @JsonIgnore
     private String obsScanntech;
     
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date dataEnvio; 
+            
     @JsonIgnore
     private boolean reenvio;
 
@@ -199,6 +203,14 @@ public class FechamentoPromocao implements Serializable{
 
     public void setCodigoScanntech(int codscanntech) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Date getDataEnvio() {
+        return dataEnvio;
+    }
+
+    public void setDataEnvio(Date dataEnvio) {
+        this.dataEnvio = dataEnvio;
     }
 
 }
