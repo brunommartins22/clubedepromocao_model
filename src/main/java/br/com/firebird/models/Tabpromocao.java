@@ -1,6 +1,7 @@
 package br.com.firebird.models;
 
 import br.com.firebird.models.Tabpromoitem;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,6 +76,22 @@ public class Tabpromocao {
     private List<Tabpromoitem> beneficioList = new ArrayList<>();
     @Transient
     private String tipoDesc;
+    @Transient
+    private String situacaoDesc;
+    @Transient
+    private String dataInicioDesc;
+    @Transient
+    private String dataFimDesc;
+    @Transient
+    private String resumoPromo;
+    @Transient
+    private Integer countRejeitados;
+    @Transient
+    private Integer countInativos;
+    @Transient
+    private Integer countPendentes;
+    @Transient
+    private Integer countAtivos;
 
     public Tabpromocao() {
     }
@@ -111,6 +128,35 @@ public class Tabpromocao {
                 resp = "Desconto Fixo";
             }
         }
+        return resp;
+    }
+
+    public String getValidarData(Date date) {
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+
+    }
+
+    public String getValidarSituacao() {
+        String resp = "";
+        switch (situacao) {
+            case "A": {
+                resp = "Ativa";
+                break;
+            }
+            case "I": {
+                resp = "Inativa";
+                break;
+            }
+            case "P": {
+                resp = "Pendente";
+                break;
+            }
+            case "R": {
+                resp = "Rejeitada";
+                break;
+            }
+        }
+
         return resp;
     }
 
@@ -298,6 +344,118 @@ public class Tabpromocao {
 
     public void setTipoDesc(String tipoDesc) {
         this.tipoDesc = tipoDesc;
+    }
+
+    /**
+     * @return the dataInicioDesc
+     */
+    public String getDataInicioDesc() {
+        return dataInicioDesc;
+    }
+
+    /**
+     * @param dataInicioDesc the dataInicioDesc to set
+     */
+    public void setDataInicioDesc(String dataInicioDesc) {
+        this.dataInicioDesc = dataInicioDesc;
+    }
+
+    /**
+     * @return the dataFimDesc
+     */
+    public String getDataFimDesc() {
+        return dataFimDesc;
+    }
+
+    /**
+     * @param dataFimDesc the dataFimDesc to set
+     */
+    public void setDataFimDesc(String dataFimDesc) {
+        this.dataFimDesc = dataFimDesc;
+    }
+
+    /**
+     * @return the situacaoDesc
+     */
+    public String getSituacaoDesc() {
+        return situacaoDesc;
+    }
+
+    /**
+     * @param situacaoDesc the situacaoDesc to set
+     */
+    public void setSituacaoDesc(String situacaoDesc) {
+        this.situacaoDesc = situacaoDesc;
+    }
+
+    /**
+     * @return the resumoPromo
+     */
+    public String getResumoPromo() {
+        return resumoPromo;
+    }
+
+    /**
+     * @param resumoPromo the resumoPromo to set
+     */
+    public void setResumoPromo(String resumoPromo) {
+        this.resumoPromo = resumoPromo;
+    }
+
+    /**
+     * @return the countInativos
+     */
+    public Integer getCountInativos() {
+        return countInativos;
+    }
+
+    /**
+     * @param countInativos the countInativos to set
+     */
+    public void setCountInativos(Integer countInativos) {
+        this.countInativos = countInativos;
+    }
+
+    /**
+     * @return the countPendentes
+     */
+    public Integer getCountPendentes() {
+        return countPendentes;
+    }
+
+    /**
+     * @param countPendentes the countPendentes to set
+     */
+    public void setCountPendentes(Integer countPendentes) {
+        this.countPendentes = countPendentes;
+    }
+
+    /**
+     * @return the countAtivos
+     */
+    public Integer getCountAtivos() {
+        return countAtivos;
+    }
+
+    /**
+     * @param countAtivos the countAtivos to set
+     */
+    public void setCountAtivos(Integer countAtivos) {
+        this.countAtivos = countAtivos;
+    }
+
+    /**
+     * @return the countRejeitados
+     */
+    public Integer getCountRejeitados() {
+        return countRejeitados;
+    }
+
+    /**
+     * @param countRejeitados the countRejeitados to set
+     */
+    public void setCountRejeitados(Integer countRejeitados) {
+        this.countRejeitados = countRejeitados;
     }
 
 }
