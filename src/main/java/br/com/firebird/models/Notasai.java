@@ -1,6 +1,7 @@
 
 package br.com.firebird.models;
 
+import br.com.interagese.util.DecimalJsonSerializer;
 import br.com.interagese.util.FormattedDateSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,21 +38,28 @@ public class Notasai implements Serializable{
     @Column(updatable = false, name = "DTHRLANC")
     private Date dthrlanc;
     
-    @JsonProperty("descuentoTotal")
     @Transient
+    @JsonProperty("descuentoTotal")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     private Double descontoTotal = 0.0;
     
-    @JsonProperty("recargoTotal")
     @Transient
+    @JsonProperty("recargoTotal")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     private Double acrescimentoTotal = 0.0;
     
     @JsonProperty("total")
     @Column(updatable = false, name = "TOTGERAL")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     private Double totgeral;
     
     @JsonIgnore
     @Column(updatable = false, name = "VLDESCNOT")
     private Double vldescnot;
+    
+    @JsonIgnore
+    @Column(updatable = false, name = "VLSUBSIDIOTOTAL")
+    private Double vlsubsidiototal;
     
     @Transient
     @JsonProperty("codigoMoneda")
@@ -236,6 +244,14 @@ public class Notasai implements Serializable{
     @JsonProperty("numero")
     public String getNumeroCupom(){
         return nrcontr.replaceAll("[^0-9]", "");
+    }
+
+    public Double getVlsubsidiototal() {
+        return vlsubsidiototal;
+    }
+
+    public void setVlsubsidiototal(Double vlsubsidiototal) {
+        this.vlsubsidiototal = vlsubsidiototal;
     }
     
 }

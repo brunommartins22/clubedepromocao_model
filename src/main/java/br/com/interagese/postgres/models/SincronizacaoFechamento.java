@@ -19,6 +19,8 @@ public class SincronizacaoFechamento {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_sincronizacao_fechamento")
     @SequenceGenerator(name = "gen_sincronizacao_fechamento", sequenceName = "seq_sincronizacao_fechamento", allocationSize = 1)
     private Long id;
+    
+    private Integer codigoFilial;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "DATA")
@@ -38,6 +40,14 @@ public class SincronizacaoFechamento {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public Integer getCodigoFilial() {
+        return codigoFilial;
+    }
+
+    public void setCodigoFilial(Integer codigoFilial) {
+        this.codigoFilial = codigoFilial;
     }
 
 }
