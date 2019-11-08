@@ -1,7 +1,9 @@
 package br.com.firebird.models;
 
+import br.com.interagese.util.DecimalJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
@@ -22,8 +24,10 @@ import javax.persistence.Transient;
         @ColumnResult(name = "qtdvend"),
         @ColumnResult(name = "vlunit"),
         @ColumnResult(name = "vltotal"),
-        @ColumnResult(name = "desconto"),
-        @ColumnResult(name = "acrescimo")
+        @ColumnResult(name = "descontoite"),
+        @ColumnResult(name = "acrescimoite"),
+        @ColumnResult(name = "descontonot"),
+        @ColumnResult(name = "acrescimonot")
     })
 })
 public class Notasaiitens implements Serializable {
@@ -50,10 +54,12 @@ public class Notasaiitens implements Serializable {
 
     @JsonProperty("importeUnitario")
     @Column(name = "VLUNIT")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     private Double vlunit;
 
     @JsonProperty("importe")
     @Column(name = "VLTOTAL")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     private Double vltotal;
 
     @JsonIgnore
@@ -75,23 +81,54 @@ public class Notasaiitens implements Serializable {
     @Transient
     @JsonIgnore
     private boolean queryNativa;
+    
+    //Transients que armazenam o descontonoitem e descontonanota
+    @Transient
+    @JsonIgnore
+    private Double acrescimoNoItem;
+    @Transient
+    @JsonIgnore
+    private Double descontoNoItem;
+    @Transient
+    @JsonIgnore
+    private Double acrescimoNaNota;
+    @Transient
+    @JsonIgnore
+    private Double descontoNaNota;
 
     public Notasaiitens() {
         queryNativa = false;
     }
 
-    public Notasaiitens(String codpro, String coddig, String descpro, Double qtdvend, Double vlunit, Number vltotal, Number desconto, Number acrescimo) {
+    //Construtor que recebe os valores passado na query
+    //alguns calculos são feitos
+    public Notasaiitens(String codpro, String coddig, String descpro, Double qtdvend, Double vlunit, Number vltotal, Number descontoNoItem, Number acrescimoNoItem, Number descontoNaNota, Number acrescimoNaNota) {
         this.codpro = codpro;
         this.coddig = coddig;
         this.descpro = descpro;
         this.qtdvend = qtdvend;
         this.vlunit = vlunit;
         this.vltotal = vltotal.doubleValue();
-        this.acrescimo = acrescimo.doubleValue();
-        this.desconto = desconto.doubleValue();
+        this.acrescimo = acrescimoNaNota == null ? 0.0 : acrescimoNaNota.doubleValue();
+        
+        //DescontoNaNota já vem com o subsidio somado no sql  
+        this.descontoNaNota = descontoNaNota == null ? 0.0 : descontoNaNota.doubleValue();
+        this.acrescimoNaNota = acrescimoNaNota == null ? 0.0 : acrescimoNaNota.doubleValue();
+        
+        this.acrescimoNoItem = acrescimoNoItem == null ? 0.0 : acrescimoNoItem.doubleValue();
+        this.descontoNoItem = descontoNoItem == null ? 0.0 : descontoNoItem.doubleValue();
+        
+        //soma o descontoNoItem e descontoNaNota
+        this.desconto = (this.descontoNoItem + this.descontoNaNota);
+        this.acrescimo = (this.acrescimoNoItem + this.acrescimoNaNota);
+        
+        this.vltotal -= this.descontoNaNota;
+        this.vltotal += this.acrescimoNaNota;
+        
         queryNativa = true;
     }
 
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     @JsonProperty("recargo")
     public Double getAcrescimo() {
         if (!queryNativa) {
@@ -115,6 +152,7 @@ public class Notasaiitens implements Serializable {
 
     }
 
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     @JsonProperty("descuento")
     public Double getDesconto() {
 
@@ -193,5 +231,21 @@ public class Notasaiitens implements Serializable {
 
     public void setVltotal(Double vltotal) {
         this.vltotal = vltotal;
+    }
+
+    public Double getAcrescimoNoItem() {
+        return acrescimoNoItem;
+    }
+
+    public void setAcrescimoNoItem(Double acrescimoNoItem) {
+        this.acrescimoNoItem = acrescimoNoItem;
+    }
+
+    public Double getDescontoNoItem() {
+        return descontoNoItem;
+    }
+
+    public void setDescontoNoItem(Double descontoNoItem) {
+        this.descontoNoItem = descontoNoItem;
     }
 }
