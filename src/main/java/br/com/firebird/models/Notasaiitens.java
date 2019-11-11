@@ -27,7 +27,8 @@ import javax.persistence.Transient;
         @ColumnResult(name = "descontoite"),
         @ColumnResult(name = "acrescimoite"),
         @ColumnResult(name = "descontonot"),
-        @ColumnResult(name = "acrescimonot")
+        @ColumnResult(name = "acrescimonot"),
+        @ColumnResult(name = "descontopromo")
     })
 })
 public class Notasaiitens implements Serializable {
@@ -81,7 +82,7 @@ public class Notasaiitens implements Serializable {
     @Transient
     @JsonIgnore
     private boolean queryNativa;
-    
+
     //Transients que armazenam o descontonoitem e descontonanota
     @Transient
     @JsonIgnore
@@ -95,6 +96,9 @@ public class Notasaiitens implements Serializable {
     @Transient
     @JsonIgnore
     private Double descontoNaNota;
+    @Transient
+    @JsonIgnore
+    private Double descontoPromo;
 
     public Notasaiitens() {
         queryNativa = false;
@@ -102,7 +106,18 @@ public class Notasaiitens implements Serializable {
 
     //Construtor que recebe os valores passado na query
     //alguns calculos são feitos
-    public Notasaiitens(String codpro, String coddig, String descpro, Double qtdvend, Double vlunit, Number vltotal, Number descontoNoItem, Number acrescimoNoItem, Number descontoNaNota, Number acrescimoNaNota) {
+    public Notasaiitens(
+            String codpro,
+            String coddig,
+            String descpro,
+            Double qtdvend,
+            Double vlunit,
+            Number vltotal,
+            Number descontoNoItem,
+            Number acrescimoNoItem,
+            Number descontoNaNota,
+            Number acrescimoNaNota,
+            Number descontoPromo) {
         this.codpro = codpro;
         this.coddig = coddig;
         this.descpro = descpro;
@@ -110,21 +125,28 @@ public class Notasaiitens implements Serializable {
         this.vlunit = vlunit;
         this.vltotal = vltotal.doubleValue();
         this.acrescimo = acrescimoNaNota == null ? 0.0 : acrescimoNaNota.doubleValue();
-        
-        //DescontoNaNota já vem com o subsidio somado no sql  
+
         this.descontoNaNota = descontoNaNota == null ? 0.0 : descontoNaNota.doubleValue();
         this.acrescimoNaNota = acrescimoNaNota == null ? 0.0 : acrescimoNaNota.doubleValue();
-        
+
         this.acrescimoNoItem = acrescimoNoItem == null ? 0.0 : acrescimoNoItem.doubleValue();
         this.descontoNoItem = descontoNoItem == null ? 0.0 : descontoNoItem.doubleValue();
-        
-        //soma o descontoNoItem e descontoNaNota
-        this.desconto = (this.descontoNoItem + this.descontoNaNota);
-        this.acrescimo = (this.acrescimoNoItem + this.acrescimoNaNota);
-        
+
+        //vlsubsidio
+        this.descontoPromo = descontoPromo == null ? 0.0 : descontoPromo.doubleValue();
+
+        //soma o descontoNoItem e descontoNaNota se não tiver promocao
+        if (this.descontoPromo == 0.0) {
+            this.desconto = (this.descontoNoItem + this.descontoNaNota);
+            this.acrescimo = (this.acrescimoNoItem + this.acrescimoNaNota);
+        }else{
+            this.desconto = (this.descontoPromo + this.descontoNaNota);
+            this.acrescimo = (this.acrescimoNoItem + this.acrescimoNaNota);
+        }
+
         this.vltotal -= this.descontoNaNota;
         this.vltotal += this.acrescimoNaNota;
-        
+
         queryNativa = true;
     }
 
@@ -171,7 +193,7 @@ public class Notasaiitens implements Serializable {
                 default:
                     return 0.0;
             }
-        }else{
+        } else {
             return desconto;
         }
 
@@ -247,5 +269,13 @@ public class Notasaiitens implements Serializable {
 
     public void setDescontoNoItem(Double descontoNoItem) {
         this.descontoNoItem = descontoNoItem;
+    }
+
+    public Double getDescontoPromo() {
+        return descontoPromo;
+    }
+
+    public void setDescontoPromo(Double descontoPromo) {
+        this.descontoPromo = descontoPromo;
     }
 }

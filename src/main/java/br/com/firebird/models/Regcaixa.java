@@ -48,10 +48,15 @@ public class Regcaixa {
         switch (tpforma) {
             case 0:
                 return TipoDePagamento.DINHEIRO.getCodigo();
-            case 2:
+            case 1:
                 return TipoDePagamento.CREDITO.getCodigo();
-            case 3:
+            case 2:
                 return TipoDePagamento.DEBITO.getCodigo();
+            case 3:
+                return TipoDePagamento.TICKET_ALIMENTACAO.getCodigo();
+            case 4:
+            case 5:
+                return TipoDePagamento.CHEQUE.getCodigo();
             default:
                 return TipoDePagamento.DINHEIRO.getCodigo();
         }

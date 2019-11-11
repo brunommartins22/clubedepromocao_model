@@ -38,6 +38,8 @@ public class SincronizacaoVendaLog implements Serializable {
     @Column(nullable = false)
     private Integer codigoFilial;
     
+    private Integer codigoScanntech;
+    
     
     /**
      * E - enviado; R - Error; P - Pendente
@@ -45,6 +47,8 @@ public class SincronizacaoVendaLog implements Serializable {
     private String situacao;
     
     private String erro;
+    
+    private boolean cancelamento;
 
     @Transient
     private String situacaoDesc;
@@ -164,6 +168,22 @@ public class SincronizacaoVendaLog implements Serializable {
 
     public void setNrcontr(String nrcontr) {
         this.nrcontr = nrcontr;
+    }
+
+    public boolean isCancelamento() {
+        return cancelamento;
+    }
+
+    public void setCancelamento(boolean cancelamento) {
+        this.cancelamento = cancelamento;
+    }
+
+    public Integer getCodigoScanntech() {
+        return codigoScanntech;
+    }
+
+    public void setCodigoScanntech(Integer codigoScanntech) {
+        this.codigoScanntech = codigoScanntech;
     }
 
 }

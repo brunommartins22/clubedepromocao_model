@@ -243,7 +243,12 @@ public class Notasai implements Serializable{
     
     @JsonProperty("numero")
     public String getNumeroCupom(){
-        return nrcontr.replaceAll("[^0-9]", "");
+        String numeroCupom = nrcontr.replaceAll("[^0-9]", "");
+        if(isCancelada()){
+            numeroCupom = "-" + numeroCupom;
+        }
+        
+        return numeroCupom;
     }
 
     public Double getVlsubsidiototal() {
