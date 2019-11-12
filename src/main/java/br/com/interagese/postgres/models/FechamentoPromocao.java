@@ -1,8 +1,10 @@
 package br.com.interagese.postgres.models;
 
+import br.com.interagese.util.DecimalJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
@@ -58,6 +60,7 @@ public class FechamentoPromocao implements Serializable{
     private Date dataDoFechamento;
 
     @JsonProperty("montoVentaLiquida")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     @Column(nullable = false)
     private Double valorTotalVendas;
 
@@ -66,6 +69,7 @@ public class FechamentoPromocao implements Serializable{
     private Long quantidadeVendas;
 
     @JsonProperty("montoCancelaciones")
+    @JsonSerialize(using = DecimalJsonSerializer.class)
     @Column(nullable = false)
     private Double valorTotalCancelamentos;
 
