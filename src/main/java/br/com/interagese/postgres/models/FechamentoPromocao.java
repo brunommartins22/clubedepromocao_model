@@ -84,6 +84,7 @@ public class FechamentoPromocao implements Serializable{
     @JsonIgnore
     private String obsScanntech;
     
+    @JsonIgnore
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date dataEnvio; 
