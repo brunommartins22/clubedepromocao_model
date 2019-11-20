@@ -6,14 +6,18 @@
 package br.com.interagese.postgres.models;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -28,6 +32,9 @@ public class Configuracao implements Serializable {
     @Id
     private Long id;
     private Integer intervaloSincronizacao;
+    @Column(updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date primeiraSincronizacao;
     @Fetch(FetchMode.SELECT)
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ConfiguracaoItem> configuracaoItem;
@@ -99,6 +106,14 @@ public class Configuracao implements Serializable {
      */
     public void setConfiguracaoItem(List<ConfiguracaoItem> configuracaoItem) {
         this.configuracaoItem = configuracaoItem;
+    }
+
+    public Date getPrimeiraSincronizacao() {
+        return primeiraSincronizacao;
+    }
+
+    public void setPrimeiraSincronizacao(Date primeiraSincronizacao) {
+        this.primeiraSincronizacao = primeiraSincronizacao;
     }
 
 }

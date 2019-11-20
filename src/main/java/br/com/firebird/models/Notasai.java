@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Where;
 
 @Entity()
 @Table(name= "notasai")
@@ -82,6 +83,7 @@ public class Notasai implements Serializable{
     
     @JsonProperty("pagos")
     @Fetch(FetchMode.SELECT)
+    @Where(clause = "NRREGIS >= 1")
     @JoinColumn(name = "NRCONTR", referencedColumnName = "NRCONTR")
     @OneToMany(fetch = FetchType.EAGER)
     private List<Regcaixa> regcaixaList;
@@ -105,6 +107,23 @@ public class Notasai implements Serializable{
     @JsonIgnore
     @Column(name = "SITUACAO", updatable = false)
     private String situacao;
+    
+    @JsonProperty("cancelacion")
+    @Transient
+    private boolean cancelada = false;
+    
+    @JsonIgnore
+    @Column(name = "NRCONTR01",updatable = false)
+    private String nrcontr01;
+    
+    @JsonIgnore
+    @Column(name = "NRCONTR02",updatable = false)
+    private String nrcontr02;
+    
+    //Flag que indica se essa venda deve ser enviada
+    @JsonIgnore
+    @Transient
+    private boolean deveSerEnviada = true;
     
     public String getNrcontr() {
         return nrcontr;
@@ -130,21 +149,13 @@ public class Notasai implements Serializable{
         this.totgeral = totgeral;
     }
 
-    @JsonProperty("cancelacion")
     public boolean isCancelada() {
-        
-        if(situacao.equals("E") || situacao.equals("N")){
-            return false;
-        }
-        
-        if(situacao.equals("A") || situacao.equals("C")){
-            return true;
-        }
-        
-        return false;
-        
+        return cancelada;
     }
 
+    public void setCancelada(boolean cancelada) {
+        this.cancelada = cancelada;
+    }
     public String getCpfcnpj() {
         return cpfcnpj;
     }
@@ -245,7 +256,7 @@ public class Notasai implements Serializable{
     public String getNumeroCupom(){
         String numeroCupom = nrcontr.replaceAll("[^0-9]", "");
         if(isCancelada()){
-            numeroCupom = "-" + numeroCupom;
+            return "-" + numeroCupom;
         }
         
         return numeroCupom;
@@ -258,5 +269,23 @@ public class Notasai implements Serializable{
     public void setVlsubsidiototal(Double vlsubsidiototal) {
         this.vlsubsidiototal = vlsubsidiototal;
     }
+
+    public String getNrcontr01() {
+        return nrcontr01;
+    }
+
+    public String getNrcontr02() {
+        return nrcontr02;
+    }
+
+    public boolean deveSerEnviada() {
+        return deveSerEnviada;
+    }
+
+    public void setDeveSerEnviada(boolean deveSerEnviada) {
+        this.deveSerEnviada = deveSerEnviada;
+    }
+ 
+    
     
 }
